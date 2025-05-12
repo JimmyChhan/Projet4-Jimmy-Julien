@@ -2,7 +2,7 @@ package com.example.projet4_jimmy_julien.data
 
 import kotlinx.coroutines.flow.Flow
 
-interface TodosRepository {
+interface TodoRepository {
    
     fun getAllTodosStream(): Flow<List<Todo>>
 
