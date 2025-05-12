@@ -1,4 +1,4 @@
-package com.example.inventory.data
+package com.example.projet4_jimmy_julien.data
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -6,7 +6,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.projet4_jimmy_julien.data.Todo
 import kotlinx.coroutines.flow.Flow
 
 @Dao
