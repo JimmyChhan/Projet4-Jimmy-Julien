@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">Tâches à faire</string>
+    <string name="app_name">Task manager</string>
+    <string name="back_button">Back</string>
+    <string name="delete">Delete</string>
+    <string name="delete_question">Are you sure you want to delete?</string>
+    <string name="no_todos_inData">Hmm… lucky you!/nIt looks like you dont have any task to do! \nPress + to add a task.</string>
+    <string name="edit_todo_title">Modify Task</string>
+    <string name="todo">Task</string>
+    <string name="todo_add_title">Add Task</string>
+    <string name="todo_creation_date_entry">Creation date</string>
+    <string name="todo_priority_entry">Priority</string>
+    <string name="todo_name_entry">Write task name here</string>
+    <string name="todo_info_entry">Write task note here</string>
+    <string name="todo_done_entry">Done</string>
+    <string name="todo_deadline_date_entry">Due date</string>
+    <string name="save_action">Save</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="required_fields">* are required fields</string>
 </resources>

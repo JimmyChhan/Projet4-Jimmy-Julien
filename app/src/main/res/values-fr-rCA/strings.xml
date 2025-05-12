@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tâches à faire</string>
+    <string name="back_button">Retour</string>
+    <string name="delete">Supprimer</string>
+    <string name="delete_question">" Êtes-vous sûr de vouloir supprimer ?"</string>
+    <string name="no_todos_inData">Hmm… quelle chance !/nOn dirait que vous n’avez aucune tâche à faire ! \\nAppuyez sur + pour ajouter une tâche.</string>
+    <string name="edit_todo_title">Modifier Tâche</string>
+    <string name="todo">Tâche</string>
+    <string name="todo_add_title">Ajouter Tâche</string>
+    <string name="todo_priority_entry">Priorité</string>
+    <string name="todo_name_entry">Tapez votre tâche ici</string>
+    <string name="todo_info_entry">Tapez votre note ici</string>
+    <string name="todo_done_entry">Fait</string>
+    <string name="todo_deadline_date_entry">Date échéance</string>
+    <string name="save_action">Sauvegarder</string>
+    <string name="no">Non</string>
+    <string name="yes">Oui</string>
+    <string name="required_fields">* sont des champs requis</string>
+    <string name="todo_creation_date_entry">Date de création</string>
+</resources>
