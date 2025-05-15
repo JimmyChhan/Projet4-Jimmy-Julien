@@ -1,4 +1,4 @@
-package com.example.inventory.ui.navigation
+package com.example.projet4_jimmy_julien.ui.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 
-/*
+
 @Composable
 fun TodoNavHost(
     navController: NavHostController,
@@ -39,4 +39,3 @@ fun TodoNavHost(
         }
     }
 }
-*/
