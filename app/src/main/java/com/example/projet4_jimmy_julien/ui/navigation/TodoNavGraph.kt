@@ -10,7 +10,9 @@ import androidx.navigation.navArgument
 import com.example.projet4_jimmy_julien.ui.home.HomeDestination
 import com.example.projet4_jimmy_julien.ui.home.HomeScreen
 import com.example.projet4_jimmy_julien.ui.todo.TodoEditDestination
+import com.example.projet4_jimmy_julien.ui.todo.TodoEditScreen
 import com.example.projet4_jimmy_julien.ui.todo.TodoEntryDestination
+import com.example.projet4_jimmy_julien.ui.todo.TodoEntryScreen
 
 
 @Composable
@@ -34,7 +36,7 @@ fun TodoNavHost(
 
         composable(
             route = TodoEditDestination.routeWithArgs,
-            arguments = listOf(navArgument(TodoEditDestination.itemIdArg) {
+            arguments = listOf(navArgument(TodoEditDestination.todoIdArg) {
                 type = NavType.IntType
             })
         ) {

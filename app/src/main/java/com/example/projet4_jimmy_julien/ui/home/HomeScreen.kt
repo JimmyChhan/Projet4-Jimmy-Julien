@@ -38,7 +38,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.inventory.ui.AppViewModelProvider
+import com.example.projet4_jimmy_julien.ui.AppViewModelProvider
 import com.example.projet4_jimmy_julien.R
 import com.example.projet4_jimmy_julien.TodoTopAppBar
 import com.example.projet4_jimmy_julien.data.Todo
