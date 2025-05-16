@@ -3,7 +3,7 @@
     <string name="back_button">Back</string>
     <string name="delete">Delete</string>
     <string name="delete_question">Are you sure you want to delete?</string>
-    <string name="no_todos_inData">Hmm… lucky you!/nIt looks like you dont have any task to do! \nPress + to add a task.</string>
+    <string name="no_todos_inData">Hmm… lucky you! \nlooks like you dont have any task to do! \n\n Press + to add a task.</string>
     <string name="edit_todo_title">Modify Task</string>
     <string name="todo">Task</string>
     <string name="todo_add_title">Add Task</string>
