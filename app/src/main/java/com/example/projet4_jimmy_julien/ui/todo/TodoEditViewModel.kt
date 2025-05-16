@@ -27,7 +27,9 @@ class TodoEditViewModel(
     private fun validateInput(uiState: TodoDetails = todoUiState.todoDetails): Boolean {
         return with(uiState) {
             //changer pour les attributs des todos
-            name.isNotBlank() && price.isNotBlank() && quantity.isNotBlank()
+            nom.isNotBlank()
+                    && note.isNotBlank()
+                    && deadLine.isNotBlank()
         }
     }
 

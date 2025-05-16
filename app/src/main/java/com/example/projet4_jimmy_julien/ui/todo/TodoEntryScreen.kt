@@ -1,15 +1,24 @@
 package com.example.projet4_jimmy_julien.ui.todo
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -17,9 +26,14 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalLayoutDirection
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.projet4_jimmy_julien.R
 import com.example.projet4_jimmy_julien.TodoTopAppBar
+import com.example.projet4_jimmy_julien.data.Priority
 import com.example.projet4_jimmy_julien.ui.AppViewModelProvider
 import com.example.projet4_jimmy_julien.ui.navigation.NavDestination
 import com.example.projet4_jimmy_julien.ui.theme.Projet4_JimmyJulienTheme
@@ -116,9 +131,9 @@ fun TodoInputForm(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         OutlinedTextField(
-            value = todoDetails.name,
-            onValueChange = { onValueChange(todoDetails.copy(name = it)) },
-            label = { Text(stringResource(R.string.required_fields)) },
+            value = todoDetails.nom,
+            onValueChange = { onValueChange(todoDetails.copy(nom = it)) },
+            label = { Text(stringResource(R.string.todo_name_entry)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -129,25 +144,25 @@ fun TodoInputForm(
             singleLine = true
         )
         OutlinedTextField(
-            value = todoDetails.price,
-            onValueChange = { onValueChange(todoDetails.copy(price = it)) },
+            value = todoDetails.note,
+            onValueChange = { onValueChange(todoDetails.copy(note = it)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-            label = { Text(stringResource(R.string.required_fields)) },
+            label = { Text(stringResource(R.string.todo_info_entry)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
             ),
-            leadingIcon = { Text(Currency.getInstance(Locale.getDefault()).symbol) },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
         )
         OutlinedTextField(
-            value = todoDetails.quantity,
-            onValueChange = { onValueChange(todoDetails.copy(quantity = it)) },
+            //a changer pour un date picker
+            value = todoDetails.deadLine,
+            onValueChange = { onValueChange(todoDetails.copy(deadLine = it)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            label = { Text(stringResource(R.string.required_fields)) },
+            label = { Text(stringResource(R.string.todo_deadline_date_entry)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -157,6 +172,14 @@ fun TodoInputForm(
             enabled = enabled,
             singleLine = true
         )
+        Row(){
+            Text(text = stringResource(R.string.todo_priority_entry))
+            Spacer(modifier = Modifier.width(16.dp))
+        DropDownDemo(
+            //a essayer avec la todo card
+           onValueSelection = {onValueChange(todoDetails.copy(priority = it))}
+        )
+        }
         if (enabled) {
             Text(
                 text = stringResource(R.string.required_fields),
@@ -166,15 +189,59 @@ fun TodoInputForm(
     }
 }
 
-@Preview(showBackground = true)
 @Composable
-private fun TodoEntryScreenPreview() {
-    Projet4_JimmyJulienTheme {
-        TodoEntryBody(todoUiState = TodoUiState(
-            TodoDetails(
-                //changer pour les attributs du todo
-                name = "Item name", price = "10.00", quantity = "5"
-            )
-        ), onTodoValueChange = {}, onSaveClick = {})
+fun DropDownDemo(
+    onValueSelection: (Priority) -> Unit
+) {
+
+    val isDropDownExpanded = remember {
+        mutableStateOf(false)
+    }
+
+    val itemPosition = remember {
+        mutableStateOf(0)
+    }
+
+    val priorities = listOf(Priority.LOW, Priority.MEDIUM, Priority.HIGH)
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+
+        Box {
+            Row(
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.clickable {
+                    isDropDownExpanded.value = true
+                }
+            ) {
+                Text(text = priorities[itemPosition.value].toString())
+                Image(
+                    painter = painterResource(id = R.drawable.baseline_arrow_drop_down_24),
+                    contentDescription = "DropDown Icon"
+                )
+            }
+            DropdownMenu(
+                expanded = isDropDownExpanded.value,
+                onDismissRequest = {
+                    isDropDownExpanded.value = false
+                }) {
+                priorities.forEachIndexed { index, priority ->
+                    DropdownMenuItem(text = {
+                        Text(text = priority.toString())
+                    },
+                        onClick = {
+                            isDropDownExpanded.value = false
+                            itemPosition.value = index
+                            onValueSelection(priority)
+                        })
+                }
+            }
+        }
+
     }
 }
+

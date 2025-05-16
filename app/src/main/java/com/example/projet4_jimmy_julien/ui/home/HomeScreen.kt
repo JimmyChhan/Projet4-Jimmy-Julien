@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -33,7 +34,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -158,7 +158,7 @@ private fun TodoItem(
             ) {
                 Checkbox(
                     checked = todo.done,
-                    onCheckedChange = {/*todo*/ }
+                    onCheckedChange = { }
                 )
 
                 Text(
@@ -169,6 +169,9 @@ private fun TodoItem(
 
             }
             Spacer(Modifier.height(5.dp))
+            Text(text = todo.priority.toString())
+            Spacer(Modifier.height(5.dp))
+
             Row(
 
             ) {
@@ -189,7 +192,11 @@ private fun TodoItem(
                     text = stringResource(R.string.in_stock, item.quantity),
                     style = MaterialTheme.typography.titleMedium
                 )*/
-                IconButton(onClick = { }) {
+                IconButton(onClick = {}) {
+                    Icon(imageVector = Icons.Default.Create,
+                        contentDescription = "UpdateIcon")
+                }
+                IconButton(onClick = { /*todo delete*/}) {
                     Icon(imageVector = Icons.Default.Delete,
                         contentDescription = "DeleteIcon")
                 }
