@@ -7,6 +7,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.projet4_jimmy_julien.ui.home.HomeDestination
+import com.example.projet4_jimmy_julien.ui.home.HomeScreen
+import com.example.projet4_jimmy_julien.ui.todo.TodoEditDestination
+import com.example.projet4_jimmy_julien.ui.todo.TodoEntryDestination
 
 
 @Composable

@@ -16,9 +16,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.projet4_jimmy_julien.R.string
+import com.example.projet4_jimmy_julien.ui.navigation.TodoNavHost
 
 
-/*@Composable
+@Composable
 fun TodoApp(navController: NavHostController = rememberNavController()) {
     TodoNavHost(navController = navController)
 }
@@ -46,4 +47,3 @@ fun TodoTopAppBar(
             }
         })
 }
-*/
