@@ -4,7 +4,7 @@
     <string name="back_button">Retour</string>
     <string name="delete">Supprimer</string>
     <string name="delete_question">" Êtes-vous sûr de vouloir supprimer ?"</string>
-    <string name="no_todos_inData">Hmm… quelle chance !/nOn dirait que vous n’avez aucune tâche à faire ! \\nAppuyez sur + pour ajouter une tâche.</string>
+    <string name="no_todos_inData">Hmm… quelle chance ! \n On dirait que vous n’avez aucune tâche à faire ! \n\n Appuyez sur + pour ajouter une tâche.</string>
     <string name="edit_todo_title">Modifier Tâche</string>
     <string name="todo">Tâche</string>
     <string name="todo_add_title">Ajouter Tâche</string>
