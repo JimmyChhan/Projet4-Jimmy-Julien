@@ -9,6 +9,7 @@
     <string name="todo">Tâche</string>
     <string name="todo_add_title">Ajouter Tâche</string>
     <string name="todo_priority_entry">Priorité</string>
+    <string name="todo_priority_label">(Priorité)</string>
     <string name="todo_name_entry">*Tapez votre tâche ici</string>
     <string name="todo_info_entry">*Tapez votre note ici</string>
     <string name="todo_done_entry">Fait</string>

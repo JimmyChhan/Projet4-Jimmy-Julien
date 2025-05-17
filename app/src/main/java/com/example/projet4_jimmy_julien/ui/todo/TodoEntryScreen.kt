@@ -31,12 +31,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.projet4_jimmy_julien.R
@@ -44,10 +42,7 @@ import com.example.projet4_jimmy_julien.TodoTopAppBar
 import com.example.projet4_jimmy_julien.data.Priority
 import com.example.projet4_jimmy_julien.ui.AppViewModelProvider
 import com.example.projet4_jimmy_julien.ui.navigation.NavDestination
-import com.example.projet4_jimmy_julien.ui.theme.Projet4_JimmyJulienTheme
 import kotlinx.coroutines.launch
-import java.util.Currency
-import java.util.Locale
 
 object TodoEntryDestination : NavDestination {
     override val route = "todo_entry"
@@ -172,10 +167,10 @@ fun TodoInputForm(
             enabled = enabled,
             singleLine = true
         )
-        Row(){
+        Row{
             Text(text = stringResource(R.string.todo_priority_entry))
             Spacer(modifier = Modifier.width(16.dp))
-        DropDownDemo(
+        DropDownMenu(
             //a essayer avec la todo card
            onValueSelection = {onValueChange(todoDetails.copy(priority = it))}
         )
@@ -190,7 +185,7 @@ fun TodoInputForm(
 }
 
 @Composable
-fun DropDownDemo(
+fun DropDownMenu(
     onValueSelection: (Priority) -> Unit
 ) {
 

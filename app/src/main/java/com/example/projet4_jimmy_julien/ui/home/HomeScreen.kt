@@ -1,5 +1,10 @@
 package com.example.projet4_jimmy_julien.ui.home
 
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -17,6 +22,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.ExpandLess
+import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
@@ -31,8 +38,12 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -74,7 +85,7 @@ fun HomeScreen(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = navigateToTodoEntry,
-                shape = RoundedCornerShape(topEnd = 3.dp, bottomEnd = 3.dp, topStart = 5.dp, bottomStart = 5.dp)
+                shape = RoundedCornerShape(8.dp)
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
@@ -97,25 +108,25 @@ private fun HomeBody(
     todoList: List<Todo>,
     onTodoClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(0.dp),
+    contentPadding: PaddingValues = PaddingValues(4.dp),
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier,
+        modifier = modifier
     ) {
         if (todoList.isEmpty()) {
             Text(
                 text = stringResource(R.string.no_todos_inData),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(contentPadding),
+                modifier = Modifier.padding(contentPadding)
             )
         } else {
             TodoList(
                 todoList = todoList,
                 onTodoClick = { onTodoClick(it.id) },
                 contentPadding = contentPadding,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(14.dp)
             )
         }
     }
@@ -133,9 +144,10 @@ private fun TodoList(
         contentPadding = contentPadding
     ) {
         items(items = todoList, key = { it.id }) { item ->
-            TodoItem(todo = item,
+            TodoItem(
+                todo = item,
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(vertical = 18.dp, horizontal = 10.dp)
                     .clickable { onTodoClick(item) })
         }
     }
@@ -143,69 +155,113 @@ private fun TodoList(
 
 @Composable
 private fun TodoItem(
-    todo: Todo, modifier: Modifier = Modifier
+    todo: Todo,
+    modifier: Modifier = Modifier
 ) {
+    var expanded by remember { mutableStateOf(false) }
+
+    val color by animateColorAsState(
+        targetValue = if (expanded) MaterialTheme.colorScheme.primaryContainer
+        else MaterialTheme.colorScheme.background
+    )
+
     Card(
         modifier = modifier,
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        colors = CardDefaults.cardColors(containerColor = color)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(10.dp, vertical = 8.dp)
+                .animateContentSize(
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioMediumBouncy,
+                        stiffness = Spring.StiffnessLow
+                    )
+                )
         ) {
+            /* METTRE LA DATE DE CREATION ICI SÉPARÉ */
+            /*
+                Text(
+                    text = todo.dateCreation,
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.weight(1f)
+                )*/
             Row(
+                verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Checkbox(
                     checked = todo.done,
                     onCheckedChange = { }
                 )
-
-                Text(
-                    text = todo.dateCreation,
-                    style = MaterialTheme.typography.titleLarge,
-                )
-                /*UnBouton(expanded, { onExpanded(todo) })*/
-
-            }
-            Spacer(Modifier.height(5.dp))
-            Text(text = todo.priority.toString())
-            Spacer(Modifier.height(5.dp))
-
-            Row(
-
-            ) {
                 Text(
                     text = todo.nom,
                     style = MaterialTheme.typography.titleLarge,
+                    modifier = modifier.weight(1f)
                 )
-                /* DANS EXPANDED Text(
-                    text = todo.note,
-                    style = MaterialTheme.typography.titleLarge,
+                UnBouton(
+                    ouvert = expanded,
+                    onClick = {
+                        expanded = !expanded
+                    }
                 )
-                Text(
-                    text = item.formatedPrice(),
-                    style = MaterialTheme.typography.titleMedium
-                )
+                Spacer(Modifier.height(8.dp))
+            }
 
-                Text(
-                    text = stringResource(R.string.in_stock, item.quantity),
-                    style = MaterialTheme.typography.titleMedium
-                )*/
-                IconButton(onClick = {}) {
-                    Icon(imageVector = Icons.Default.Create,
-                        contentDescription = "UpdateIcon")
+            if (expanded) {
+                Spacer(Modifier.height(8.dp))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = todo.note,
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = modifier
+                            .padding(start = 4.dp)
+                            .weight(1f)
+                    )
+                    IconButton(
+                        onClick = {},
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Create,
+                            contentDescription = "UpdateIcon"
+                        )
+                    }
                 }
-                IconButton(onClick = { /*todo delete*/}) {
-                    Icon(imageVector = Icons.Default.Delete,
-                        contentDescription = "DeleteIcon")
+                Spacer(Modifier.height(4.dp))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(R.string.todo_priority_label),
+                        style = MaterialTheme.typography.titleSmall,
+                        modifier = modifier.padding(start = 4.dp)
+                    )
+                    Text(
+                        text = todo.priority.toString(),
+                        style = MaterialTheme.typography.titleSmall,
+                        modifier = modifier.weight(1f)
+                    )
+                    IconButton(
+                        onClick = { /*todo delete*/ },
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = "DeleteIcon"
+                        )
+                    }
                 }
             }
         }
     }
 }
 
-/*@Composable
+@Composable
 fun UnBouton(
     ouvert: Boolean,
     onClick: () -> Unit,
@@ -219,7 +275,24 @@ fun UnBouton(
             imageVector = if (ouvert) Icons.Filled.ExpandLess else Icons
                 .Filled.ExpandMore,
             contentDescription = "Ouvrir",
-            tint = MaterialTheme.colorScheme.secondary
+            tint = MaterialTheme.colorScheme.tertiary
         )
     }
-}*/
+}
+
+
+//RESTE À FAIRE:
+/*
+ACTION BOUTON DONE
+ACTION BOUTTON EDIT
+ACTION BOUTTON DELETE
+FAIRE FONCTION ET AFFICHER LA DATE DE CRÉATION LOCAL TIME
+GROSSEUR DU TITRE TASK MANAGER
++++ ADD MORE ON THE GO!
+
+-OPTIONNEL-
+***
+LE UN SEUL TASK PEUT ETRE OUVERT
+MODIFIER TAILLE DES TEXTES SI POSSIBLE
+***
+ */

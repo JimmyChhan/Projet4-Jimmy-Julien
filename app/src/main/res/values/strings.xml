@@ -9,6 +9,7 @@
     <string name="todo_add_title">Add Task</string>
     <string name="todo_creation_date_entry">Creation date</string>
     <string name="todo_priority_entry">Priority</string>
+    <string name="todo_priority_label">(Priority)</string>
     <string name="todo_name_entry">*Write task name here</string>
     <string name="todo_info_entry">*Write task note here</string>
     <string name="todo_done_entry">Done</string>
