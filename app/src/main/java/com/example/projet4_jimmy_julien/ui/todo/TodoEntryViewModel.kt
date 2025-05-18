@@ -31,7 +31,7 @@ class TodoEntryViewModel(private val todoRepository: TodoRepository) : ViewModel
 
             nom.isNotBlank()
                     && note.isNotBlank()
-                    && deadLine.isNotBlank()
+
         }
     }
 }
@@ -44,12 +44,12 @@ data class TodoUiState(
 
 data class TodoDetails(
     val id: Int = 0,
-    val dateCreation: String = "",
+    val dateCreation: Long = 0,
     val priority: Priority = Priority.LOW,
     val nom: String = "",
     val note: String ="",
     val done: Boolean = false,
-    val deadLine:String = ""
+    val deadLine:Long=0
 )
 
 

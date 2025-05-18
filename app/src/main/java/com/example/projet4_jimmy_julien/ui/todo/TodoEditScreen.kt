@@ -6,20 +6,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.projet4_jimmy_julien.R
 import com.example.projet4_jimmy_julien.TodoTopAppBar
 import com.example.projet4_jimmy_julien.ui.AppViewModelProvider
 import com.example.projet4_jimmy_julien.ui.navigation.NavDestination
-import com.example.projet4_jimmy_julien.ui.theme.Projet4_JimmyJulienTheme
 import kotlinx.coroutines.launch
 
 object TodoEditDestination : NavDestination {

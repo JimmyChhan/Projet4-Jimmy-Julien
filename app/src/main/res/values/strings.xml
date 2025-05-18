@@ -19,4 +19,6 @@
     <string name="yes">Yes</string>
     <string name="required_fields">* are required fields</string>
     <string name="alert">Warning!</string>
+    <string name="todo_deadline_label">Deadline: </string>
+    <string name="todo_date_creation_label">Created at:</string>
 </resources>

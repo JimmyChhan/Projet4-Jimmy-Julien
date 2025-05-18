@@ -4,7 +4,6 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -54,6 +53,9 @@ import com.example.projet4_jimmy_julien.TodoTopAppBar
 import com.example.projet4_jimmy_julien.data.Todo
 import com.example.projet4_jimmy_julien.ui.AppViewModelProvider
 import com.example.projet4_jimmy_julien.ui.navigation.NavDestination
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 object HomeDestination : NavDestination {
@@ -197,13 +199,17 @@ private fun TodoItem(
                     )
                 )
         ) {
-            /* METTRE LA DATE DE CREATION ICI SÉPARÉ */
-            /*
                 Text(
-                    text = todo.dateCreation,
+                    text = todo.dateCreation.toString(),
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.weight(1f)
-                )*/
+                )
+            Text(
+                text = todo.deadLine.toString(),
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.weight(1f)
+            )
+
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
@@ -274,6 +280,38 @@ private fun TodoItem(
                     }
 
                 }
+                Spacer(Modifier.height(4.dp))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(R.string.todo_deadline_label),
+                        style = MaterialTheme.typography.titleSmall,
+                        modifier = modifier.padding(start = 4.dp)
+                    )
+                    Text(
+                        text = formatDate(todo.deadLine),
+                        style = MaterialTheme.typography.titleSmall,
+                        modifier = modifier.weight(1f)
+                    )
+                }
+                Spacer(Modifier.height(4.dp))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = stringResource(R.string.todo_date_creation_label),
+                        style = MaterialTheme.typography.titleSmall,
+                        modifier = modifier.padding(start = 4.dp)
+                    )
+                    Text(
+                        text = formatDate(todo.dateCreation),
+                        style = MaterialTheme.typography.titleSmall,
+                        modifier = modifier.weight(1f)
+                    )
+                }
             }
         }
         if (deleteConfirmationRequired) {
@@ -328,12 +366,15 @@ private fun DeleteConfirmationDialog(
         })
 }
 
+fun formatDate(millis: Long): String {
+    val date = Date(millis)
+    val formatter = SimpleDateFormat("yyyy/MM/dd", Locale.getDefault())
+    return formatter.format(date)
+}
+
 
 //RESTE À FAIRE:
 /*
-ACTION BOUTTON EDIT
-FAIRE FONCTION ET AFFICHER LA DATE DE CRÉATION LOCAL TIME
-+++ ADD MORE ON THE GO!!
 
 -OPTIONNEL-
 ***
