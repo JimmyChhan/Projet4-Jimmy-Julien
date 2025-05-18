@@ -18,4 +18,5 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="required_fields">* are required fields</string>
+    <string name="alert">Warning!</string>
 </resources>
