@@ -156,8 +156,8 @@ private fun TodoList(
                 todo = item,
                 onTodoDelete = { onTodoDelete(item) },
                 modifier = Modifier
-                    .padding(vertical = 18.dp, horizontal = 10.dp)
-                    .clickable { onTodoClick(item) },
+                    .padding(vertical = 18.dp, horizontal = 10.dp),
+                    onTodoClick = { onTodoClick(item) },
                 onTodoCheck = {onTodoCheck(item)}
             )
         }
@@ -170,6 +170,7 @@ private fun TodoItem(
     modifier: Modifier = Modifier,
     onTodoDelete: () -> Unit,
     onTodoCheck: () -> Unit,
+    onTodoClick: () -> Unit
     ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -239,7 +240,7 @@ private fun TodoItem(
                             .weight(1f)
                     )
                     IconButton(
-                        onClick = {},
+                        onClick = {onTodoClick()},
                     ) {
                         Icon(
                             imageVector = Icons.Default.Create,
