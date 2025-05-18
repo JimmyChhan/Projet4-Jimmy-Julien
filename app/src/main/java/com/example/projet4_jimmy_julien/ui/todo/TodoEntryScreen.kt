@@ -1,6 +1,7 @@
 package com.example.projet4_jimmy_julien.ui.todo
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.calculateEndPadding
 import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -95,7 +97,7 @@ fun TodoEntryBody(
     modifier: Modifier = Modifier
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(18.dp),
         modifier = modifier.padding(16.dp)
     ) {
         TodoInputForm(
@@ -122,9 +124,10 @@ fun TodoInputForm(
     enabled: Boolean = true
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.padding(horizontal = 8.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
+        Spacer(Modifier.height(20.dp))
         OutlinedTextField(
             value = todoDetails.nom,
             onValueChange = { onValueChange(todoDetails.copy(nom = it)) },
@@ -155,7 +158,7 @@ fun TodoInputForm(
         OutlinedTextField(
             //a changer pour un date picker
             value = todoDetails.deadLine,
-            onValueChange = { onValueChange(todoDetails.copy(deadLine = it)) },
+            onValueChange = { onValueChange(todoDetails.copy(deadLine = it))},
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             label = { Text(stringResource(R.string.todo_deadline_date_entry)) },
             colors = OutlinedTextFieldDefaults.colors(
@@ -167,11 +170,10 @@ fun TodoInputForm(
             enabled = enabled,
             singleLine = true
         )
-        Row{
+        Spacer(Modifier.height(8.dp))
+        Row(horizontalArrangement = Arrangement.Center, modifier = Modifier.fillMaxWidth()){
             Text(text = stringResource(R.string.todo_priority_entry))
-            Spacer(modifier = Modifier.width(16.dp))
         DropDownMenu(
-            //a essayer avec la todo card
            onValueSelection = {onValueChange(todoDetails.copy(priority = it))}
         )
         }
@@ -179,8 +181,10 @@ fun TodoInputForm(
             Text(
                 text = stringResource(R.string.required_fields),
                 modifier = Modifier.padding(16.dp)
+
             )
         }
+        Spacer(Modifier.height(62.dp))
     }
 }
 
@@ -200,8 +204,7 @@ fun DropDownMenu(
     val priorities = listOf(Priority.LOW, Priority.MEDIUM, Priority.HIGH)
 
     Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.padding( start = 12.dp),
         verticalArrangement = Arrangement.Center
     ) {
 

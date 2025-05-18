@@ -68,11 +68,3 @@ fun TodoEditScreen(
         )
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun TodoEditScreenPreview() {
-    Projet4_JimmyJulienTheme {
-        TodoEditScreen(navigateBack = { /*Do nothing*/ }, onNavigateUp = { /*Do nothing*/ })
-    }
-}
