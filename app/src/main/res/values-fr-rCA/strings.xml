@@ -26,5 +26,6 @@
     <string name="filter_all">Tous</string>
     <string name="filter_done">Faits</string>
     <string name="filter_not_done">Non Faits</string>
+    <string name="search">Rechercher</string>
 
 </resources>

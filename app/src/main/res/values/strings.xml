@@ -25,5 +25,6 @@
     <string name="filter_all">All</string>
     <string name="filter_done">Done</string>
     <string name="filter_not_done">Not Done</string>
+    <string name="search">Search</string>
 
 </resources>

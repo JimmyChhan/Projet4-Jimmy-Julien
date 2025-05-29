@@ -4,7 +4,6 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -29,7 +28,6 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Divider
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,6 +36,7 @@ import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -54,6 +53,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -93,10 +93,15 @@ fun HomeScreen(
 
     var selectedFilter by rememberSaveable { mutableStateOf(TodoFilter.ALL) }
 
+    var searchQuery by rememberSaveable { mutableStateOf("") }
+
     val filteredTodos = when (selectedFilter) {
         TodoFilter.ALL -> homeUiState.todoList
         TodoFilter.DONE -> homeUiState.todoList.filter { it.done }
         TodoFilter.NOT_DONE -> homeUiState.todoList.filter { !it.done }
+    }.filter {
+        it.nom.contains(searchQuery, ignoreCase = true) ||
+                it.note.contains(searchQuery, ignoreCase = true)
     }
 
     ModalNavigationDrawer(
@@ -160,14 +165,35 @@ fun HomeScreen(
                 }
             },
         ) { innerPadding ->
-            HomeBody(
-                todoList = filteredTodos,
-                onTodoClick = navigateToTodoUpdate,
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = innerPadding,
-                onTodoDelete = { viewModel.deleteTodo(it) },
-                onTodoCheck = { viewModel.checkTodo(it) },
-            )
+            Column(modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize()
+            ) {
+                OutlinedTextField(
+                    value = searchQuery,
+                    onValueChange = { searchQuery = it },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp),
+                    label = { Text(stringResource(R.string.search)) },
+                    leadingIcon = {
+                        Icon(
+                            painter = painterResource( R.drawable.baseline_search_24),
+                            contentDescription = "Icône de recherche"
+                        )
+                    },
+                    singleLine = true,
+                    shape = RoundedCornerShape(8.dp)
+                )
+                HomeBody(
+                    todoList = filteredTodos,
+                    onTodoClick = navigateToTodoUpdate,
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = innerPadding,
+                    onTodoDelete = { viewModel.deleteTodo(it) },
+                    onTodoCheck = { viewModel.checkTodo(it) },
+                )
+            }
         }
     }
 }
