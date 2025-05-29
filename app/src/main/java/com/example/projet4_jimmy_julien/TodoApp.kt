@@ -37,7 +37,8 @@ fun TodoTopAppBar(
     canNavigateBack: Boolean,
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior? = null,
-    navigateUp: () -> Unit = {}
+    navigateUp: () -> Unit = {},
+    openFilter: () -> Unit = {}
 ) {
     CenterAlignedTopAppBar({
         Row (verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(top = 30.dp, bottom = 20.dp)){
@@ -57,6 +58,13 @@ fun TodoTopAppBar(
                 IconButton(onClick = navigateUp) {
                     Icon(
                         painter = painterResource(R.drawable.baseline_arrow_back_24),
+                        contentDescription = ""
+                    )
+                }
+            }else{
+                IconButton(onClick = openFilter) {
+                    Icon(
+                        painter = painterResource(R.drawable.baseline_menu_24),
                         contentDescription = ""
                     )
                 }

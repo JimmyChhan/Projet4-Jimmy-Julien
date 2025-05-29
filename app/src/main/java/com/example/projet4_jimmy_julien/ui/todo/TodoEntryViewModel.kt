@@ -64,8 +64,6 @@ fun TodoDetails.toTodo(): Todo = Todo(
 
 )
 
-//fun date
-
 
 fun Todo.toTodoUiState(isEntryValid: Boolean = false): TodoUiState = TodoUiState(
     todoDetails = this.toTodoDetails(),

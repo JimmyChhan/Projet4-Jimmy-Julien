@@ -22,5 +22,9 @@
     <string name="alert">Attention!</string>
     <string name="todo_deadline_label">À faire pour:</string>
     <string name="todo_date_creation_label">Créé le:</string>
+    <string name="filter">Filtres</string>
+    <string name="filter_all">Tous</string>
+    <string name="filter_done">Faits</string>
+    <string name="filter_not_done">Non Faits</string>
 
 </resources>

@@ -21,4 +21,9 @@
     <string name="alert">Warning!</string>
     <string name="todo_deadline_label">Deadline: </string>
     <string name="todo_date_creation_label">Created at:</string>
+    <string name="filter">Filters</string>
+    <string name="filter_all">All</string>
+    <string name="filter_done">Done</string>
+    <string name="filter_not_done">Not Done</string>
+
 </resources>
